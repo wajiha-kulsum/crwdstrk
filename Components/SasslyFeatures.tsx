@@ -1,6 +1,12 @@
 import { Leaf, Mic, Database, Lock } from 'lucide-react';
 
-const FeatureCard = ({ icon, title, description }) => (
+interface Feature {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}
+
+const FeatureCard: React.FC<Feature> = ({ icon, title, description }) => (
   <div className="p-6 transition-transform transform bg-white border border-gray-200 rounded-lg shadow-sm hover:scale-105 hover:shadow-lg">
     <div className="mb-4 text-primary">{icon}</div>
     <h3 className="mb-2 text-xl font-semibold text-black">{title}</h3>
@@ -11,8 +17,8 @@ const FeatureCard = ({ icon, title, description }) => (
   </div>
 );
 
-export default function SasslyFeatures() {
-  const features = [
+const SasslyFeatures: React.FC = () => {
+  const features: Feature[] = [
     {
       icon: <Leaf className="w-8 h-8 text-primary" />, // Added color to icon
       title: "Smart Automation",
@@ -54,3 +60,5 @@ export default function SasslyFeatures() {
     </section>
   );
 }
+
+export default SasslyFeatures;

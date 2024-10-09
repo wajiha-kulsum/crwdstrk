@@ -2,7 +2,13 @@ import React from 'react';
 import { ArrowDown } from 'lucide-react';
 
 // StatBox component with soft hover effect
-const StatBox = ({ number, text, className = '' }) => (
+interface StatBoxProps {
+  number: string;
+  text: string;
+  className?: string;
+}
+
+const StatBox: React.FC<StatBoxProps> = ({ number, text, className = '' }) => (
   <div className={`p-6 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md hover:bg-gray-50 ${className}`}>
     <div className={`mb-2 text-4xl font-bold ${className === 'bg-purple-100' ? 'text-purple-800' : 'text-gray-800'}`}>
       {number}
@@ -12,7 +18,7 @@ const StatBox = ({ number, text, className = '' }) => (
 );
 
 // Fully integrated Section1 component with soft hover effects
-const Section1 = () => {
+const Section1: React.FC = () => {
   // Stats array defined within the component
   const stats = [
     { number: '30m+', text: 'Sassly used by over 30 million customers worldwide.', className: 'bg-purple-100' }, // Keep purple for this card

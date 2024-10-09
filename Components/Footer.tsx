@@ -1,4 +1,6 @@
-export default function Footer() {
+import React from 'react';
+
+const Footer: React.FC = () => {
   return (
     <footer className="py-10 border-t border-gray-200 bg-gray-50">
       <div className="container px-6 mx-auto">
@@ -56,7 +58,9 @@ export default function Footer() {
               </div>
               <label className="flex items-center text-sm text-gray-600">
                 <input type="checkbox" className="mr-2 rounded focus:ring-primary" />
-                <span>I agree with the <a href="#" className="underline text-primary">privacy policy</a></span>
+                <span>
+                  I agree with the <a href="#" className="underline text-primary">privacy policy</a>
+                </span>
               </label>
             </form>
           </div>
@@ -75,4 +79,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

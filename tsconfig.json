@@ -12,12 +12,21 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "Components/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
@@ -28,8 +37,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "Components/*.jsx" // Include any .jsx files in the Components folder
+    ,
     ".next/types/**/*.ts"
-, "Components/SecLand.jsx"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

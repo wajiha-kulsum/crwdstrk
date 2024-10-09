@@ -3,7 +3,13 @@
 import { useState, useRef } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const faqItems = [
+// Define the structure of FAQ items
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const faqItems: FAQItem[] = [
   {
     question: "What is Sassly?",
     answer:
@@ -32,10 +38,10 @@ const faqItems = [
 ];
 
 export default function FAQComponent() {
-  const [openItem, setOpenItem] = useState(null);
-  const answerRefs = useRef([]);
+  const [openItem, setOpenItem] = useState<number | null>(null);
+  const answerRefs = useRef<(HTMLDivElement | null)[]>(Array(faqItems.length).fill(null)); // Initialize refs array
 
-  const toggleItem = (index) => {
+  const toggleItem = (index: number) => {
     setOpenItem(openItem === index ? null : index);
   };
 
@@ -64,7 +70,7 @@ export default function FAQComponent() {
                     </button>
                     <div
                       id={`faq-answer-${index}`}
-                      ref={(el) => (answerRefs.current[index] = el)}
+                      // ref={(el) => (answerRefs.current[index] = el)} // Store the reference
                       className="mt-2 overflow-hidden text-gray-600 transition-all duration-300 ease-in-out"
                       style={{
                         maxHeight: openItem === index ? answerRefs.current[index]?.scrollHeight + "px" : "0px",

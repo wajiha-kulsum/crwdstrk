@@ -1,6 +1,13 @@
 import React from 'react';
 
-const PricingCard = ({ title, price, features, popular }) => {
+interface PricingCardProps {
+  title: string;
+  price: string;
+  features: string[];
+  popular?: boolean;
+}
+
+const PricingCard: React.FC<PricingCardProps> = ({ title, price, features, popular }) => {
   return (
     <div
       className={`p-8 rounded-2xl shadow-lg transition-all duration-300 
@@ -34,7 +41,7 @@ const PricingCard = ({ title, price, features, popular }) => {
   );
 };
 
-const Section2 = () => {
+const Section2: React.FC = () => {
   const plans = [
     {
       title: 'Basic',
