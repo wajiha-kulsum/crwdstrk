@@ -59,6 +59,12 @@ const Navbar: React.FC = () => { // Define the component type as a functional co
 
         {/* Login/Register Buttons */}
         <div className="flex space-x-4">
+        <a
+            href="/tryFree"
+            className="inline-block px-4 py-2 text-sm font-medium text-white transition-all duration-300 transform bg-gray-900 border border-gray-900 rounded-lg shadow-sm hover:bg-gray-800 hover:translate-x-1"
+          >
+            Try for Free
+          </a>
           <a
             href="#"
             className="inline-block px-4 py-2 text-sm font-medium text-gray-900 transition-all duration-300 transform border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 hover:translate-x-1"

@@ -5,6 +5,7 @@ import React from 'react';
 function FAQComponentWrapper() { // Changed the function name for clarity
   return (
     <div>
+      <Navbar></Navbar>
       <FAQComponent />
     </div>
   );
