@@ -22,8 +22,9 @@ const Article = () => {
 
                 console.log(response.data); // Check response structure
 
-                // Assuming response.data.articles contains the list of articles
-                setData(response.data.articles || []); // Adjust based on actual structure
+                // Accessing the hasPart array
+                const articles = response.data.hasPart || []; // Assuming hasPart contains the articles
+                setData(articles);
                 setLoading(false);
             } catch (err) {
                 console.error(err);
@@ -45,10 +46,19 @@ const Article = () => {
 
     return (
         <div className='cardContainer'>
-            {Array.isArray(data) && data.length > 0 ? (
-                data.map((item, index) => (
-                    <Articles key={index} title={item.title} description={item.description} />
-                ))
+            {data.length > 0 ? (
+                data.map((item, index) => {
+                     // Accessing the nested hasPart
+                    return (
+                        <Articles 
+                            key={index} 
+                            headline={item.headline} 
+                            // text={subPart.text} 
+                            description={item.description} // Add description here
+                            URL={item.url} 
+                        />
+                    );
+                })
             ) : (
                 <div>No articles available</div>
             )}
