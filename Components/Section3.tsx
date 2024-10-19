@@ -6,7 +6,7 @@ export default function Section3() {
       <div className="grid items-center w-full grid-cols-1 gap-8 lg:grid-cols-2">
         
         {/* Left Section: Text Content */}
-        <div className="flex flex-col justify-center w-full h-full p-12 bg-gray-100 rounded-xl">
+        <div className="flex flex-col justify-center w-full h-full p-12 bg-violet-50 rounded-xl">
           <h1 className="mb-6 text-5xl font-bold leading-snug text-gray-900 lg:text-6xl">
             Help you instantly with <br /> an AI-driven chatbot
           </h1>

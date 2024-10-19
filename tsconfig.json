@@ -37,8 +37,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "Components/*.jsx" // Include any .jsx files in the Components folder
-    ,
+    "Components/**/*.{ts,tsx,jsx}",  // Includes .ts, .tsx, and .jsx files
     ".next/types/**/*.ts"
   ],
   "exclude": [

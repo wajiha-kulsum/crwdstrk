@@ -1,8 +1,882 @@
-"use client";
-import Link from 'next/link';
-import React, { useState } from 'react';
+"use client"
 
-// Define types for question and option
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios'; // Axios to fetch data from the backend
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string; // Use string instead of number to store text
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null); // Single question state
+//   const [loading, setLoading] = useState<boolean>(true);
+
+// const fetchQuestion = async (previousAnswer?: string) => {
+//     try {
+//         const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//         const questionData = response.data;
+        
+//         // Ensure questionData is an object and has the expected structure
+//         if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//             const formattedQuestion: Question = {
+//                 question: questionData.question,
+//                 options: questionData.options.map((text: string, index: number) => ({
+//                     id: index + 1,
+//                     text,
+//                 })),
+//             };
+
+//             setCurrentQuestion(formattedQuestion);
+//         } else {
+//             console.error("Unexpected question data structure:", questionData);
+//         }
+//     } catch (error) {
+//         if (axios.isAxiosError(error)) {
+//             console.error("Error fetching question:", error.response ? error.response.data : error);
+//         } else {
+//             console.error("Unexpected error:", error); // Handle unexpected errors
+//         }
+//     } finally {
+//         setLoading(false);
+//     }
+// };
+
+//   useEffect(() => {
+//     // Fetch the first question on component mount
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = () => {
+//     if (selectedOption) {
+//       setResponses([...responses, { question: currentQuestion?.question || "", answer: selectedOption }]);
+//       setSelectedOption(null);
+//       setLoading(true);
+
+//       // Fetch the next question based on the current answer
+//       fetchQuestion(selectedOption);
+//     }
+//   };
+
+//   if (loading || !currentQuestion) {
+//     return <div>Loading...</div>; // Loading state while fetching
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full px-4 py-3 font-extrabold text-white bg-blue-400 rounded-lg hover:bg-pink-800"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios'; // Axios to fetch data from the backend
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string; // Use string instead of number to store text
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null); // Single question state
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [questionCount, setQuestionCount] = useState(0); // New state to count answered questions
+
+//   const fetchQuestion = async (previousAnswer?: string) => {
+//     try {
+//       const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//       const questionData = response.data;
+
+//       // Ensure questionData is an object and has the expected structure
+//       if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//         const formattedQuestion: Question = {
+//           question: questionData.question,
+//           options: questionData.options.map((text: string, index: number) => ({
+//             id: index + 1,
+//             text,
+//           })),
+//         };
+
+//         setCurrentQuestion(formattedQuestion);
+//       } else {
+//         console.error("Unexpected question data structure:", questionData);
+//       }
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error("Error fetching question:", error.response ? error.response.data : error);
+//       } else {
+//         console.error("Unexpected error:", error); // Handle unexpected errors
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Fetch the first question on component mount
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = () => {
+//     if (selectedOption) {
+//       // Update responses with the selected option
+//       setResponses([...responses, { question: currentQuestion?.question || "", answer: selectedOption }]);
+//       setSelectedOption(null);
+//       setLoading(true);
+
+//       // Increment question count
+//       setQuestionCount((prevCount) => prevCount + 1);
+
+//       if (questionCount < 5) {
+//         // Fetch the next question if less than 15 questions have been answered
+//         fetchQuestion(selectedOption);
+//       } else {
+//         // Send responses to the backend for analysis after 15 questions
+//         axios.post('http://localhost:5000/analyze', { responses: [...responses, { question: currentQuestion?.question || "", answer: selectedOption }] })
+//           .then((response) => {
+//             // Handle the AI's analysis response here
+//             console.log(response.data); // You can display it to the user
+//           })
+//           .catch((error) => {
+//             console.error("Error analyzing responses", error);
+//           });
+//       }
+//     }
+//   };
+
+//   if (loading || !currentQuestion) {
+//     return <div>Loading...</div>; // Loading state while fetching
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full px-4 py-3 font-extrabold text-white bg-blue-400 rounded-lg hover:bg-pink-800"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios'; // Axios to fetch data from the backend
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string; // Use string instead of number to store text
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null); // Single question state
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [questionCount, setQuestionCount] = useState(0); // State to count answered questions
+
+//   const fetchQuestion = async (previousAnswer?: string) => {
+//     setLoading(true); // Start loading before the request
+//     try {
+//       const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//       const questionData = response.data;
+
+//       // Ensure questionData is an object and has the expected structure
+//       if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//         const formattedQuestion: Question = {
+//           question: questionData.question,
+//           options: questionData.options.map((text: string, index: number) => ({
+//             id: index + 1,
+//             text,
+//           })),
+//         };
+
+//         setCurrentQuestion(formattedQuestion);
+//       } else {
+//         console.error("Unexpected question data structure:", questionData);
+//       }
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error("Error fetching question:", error.response ? error.response.data : error);
+//       } else {
+//         console.error("Unexpected error:", error); // Handle unexpected errors
+//       }
+//     } finally {
+//       setLoading(false); // Stop loading after the request
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Fetch the first question on component mount
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = () => {
+//     if (selectedOption) {
+//       // Update responses with the selected option
+//       setResponses(prevResponses => [...prevResponses, { question: currentQuestion?.question || "", answer: selectedOption }]);
+//       setSelectedOption(null);
+//       setLoading(true);
+
+//       // Increment question count
+//       setQuestionCount(prevCount => prevCount + 1);
+
+//       if (questionCount < 3) { // Change this to 14 for a total of 15 questions
+//         // Fetch the next question if less than 15 questions have been answered
+//         fetchQuestion(selectedOption);
+//       } else {
+//         // Send responses to the backend for analysis after 15 questions
+//         axios.post('http://localhost:5000/analyze', { responses: [...responses, { question: currentQuestion?.question || "", answer: selectedOption }] })
+//           .then((response) => {
+//             // Handle the AI's analysis response here
+//             console.log(response.data); // You can display it to the user
+//           })
+//           .catch((error) => {
+//             console.error("Error analyzing responses", error);
+//           });
+//       }
+//     }
+//   };
+
+//   if (loading || !currentQuestion) {
+//     return <div>Loading...</div>; // Loading state while fetching
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full px-4 py-3 font-extrabold text-white bg-blue-400 rounded-lg hover:bg-pink-800"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios'; // Axios to fetch data from the backend
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string; // Use string instead of number to store text
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null); // Single question state
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [questionCount, setQuestionCount] = useState(0); // New state to count answered questions
+
+//   const fetchQuestion = async (previousAnswer?: string) => {
+//     try {
+//       const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//       const questionData = response.data;
+
+//       // Ensure questionData is an object and has the expected structure
+//       if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//         const formattedQuestion: Question = {
+//           question: questionData.question,
+//           options: questionData.options.map((text: string, index: number) => ({
+//             id: index + 1,
+//             text,
+//           })),
+//         };
+
+//         setCurrentQuestion(formattedQuestion);
+//       } else {
+//         console.error("Unexpected question data structure:", questionData);
+//       }
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error("Error fetching question:", error.response ? error.response.data : error);
+//       } else {
+//         console.error("Unexpected error:", error); // Handle unexpected errors
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Fetch the first question on component mount
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = () => {
+//     if (selectedOption) {
+//       // Update responses with the selected option
+//       setResponses([...responses, { question: currentQuestion?.question || "", answer: selectedOption }]);
+//       setSelectedOption(null);
+//       setLoading(true);
+
+//       // Increment question count
+//       setQuestionCount((prevCount) => prevCount + 1);
+
+//       if (questionCount < 1) { // Changed to 14 to allow for a total of 15 questions
+//         // Fetch the next question if less than 15 questions have been answered
+//         fetchQuestion(selectedOption);
+//       } else {
+//         // Send responses to the backend for analysis after 15 questions
+//         axios.post('http://localhost:5000/analyze', {
+//           responses: [...responses, { question: currentQuestion?.question || "", answer: selectedOption }]
+//         })
+//         .then((response) => {
+//           // Handle the AI's analysis response here
+//           console.log(response.data); // You can display it to the user
+//         })
+//         .catch((error) => {
+//           console.error("Error analyzing responses", error);
+//         });
+//       }
+//     }
+//   };
+
+//   if (loading || !currentQuestion) {
+//     return <div>Loading...</div>; // Loading state while fetching
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full px-4 py-3 font-extrabold text-white bg-blue-400 rounded-lg hover:bg-pink-800"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+
+
+
+
+
+
+// import { useEffect, useState } from 'react';
+// import axios from 'axios'; // Axios to fetch data from the backend
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string; // Use string instead of number to store text
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null); // Single question state
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [questionCount, setQuestionCount] = useState(0); // State to count answered questions
+
+//   const fetchQuestion = async (previousAnswer?: string) => {
+//     try {
+//       const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//       const questionData = response.data;
+
+//       // Ensure questionData is an object and has the expected structure
+//       if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//         const formattedQuestion: Question = {
+//           question: questionData.question,
+//           options: questionData.options.map((text: string, index: number) => ({
+//             id: index + 1,
+//             text,
+//           })),
+//         };
+
+//         setCurrentQuestion(formattedQuestion);
+//       } else {
+//         console.error("Unexpected question data structure:", questionData);
+//       }
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error("Error fetching question:", error.response ? error.response.data : error);
+//       } else {
+//         console.error("Unexpected error:", error); // Handle unexpected errors
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Fetch the first question on component mount
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = () => {
+//     if (selectedOption) {
+//       // Update responses with the selected option
+//       const newResponse = { question: currentQuestion?.question || "", answer: selectedOption };
+//       setResponses((prevResponses) => [...prevResponses, newResponse]);
+//       setSelectedOption(null);
+//       setLoading(true);
+
+//       // Increment question count
+//       setQuestionCount((prevCount) => {
+//         const newCount = prevCount + 1;
+
+//         if (newCount < 3) { // Allow for a total of 15 questions
+//           fetchQuestion(selectedOption);
+//         } else {
+//           // Send responses to the backend for analysis after 15 questions
+//           axios.post('http://localhost:5000/analyze', {
+//             responses: [...responses, newResponse]
+//           })
+//           .then((response) => {
+//             // Handle the AI's analysis response here
+//             console.log(response.data); // You can display it to the user
+//           })
+//           .catch((error) => {
+//             console.error("Error analyzing responses", error);
+//           });
+//         }
+//         return newCount; // Update question count
+//       });
+//     }
+//   };
+
+//   if (loading || !currentQuestion) {
+//     return <div>Loading...</div>; // Loading state while fetching
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full px-4 py-3 font-extrabold text-white bg-blue-400 rounded-lg hover:bg-pink-800"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// type Option = {
+//   id: number;
+//   text: string;
+// };
+
+// type Question = {
+//   question: string;
+//   options: Option[];
+// };
+
+// type Response = {
+//   question: string;
+//   answer: string;
+// };
+
+// const Assessment: React.FC = () => {
+//   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+//   const [responses, setResponses] = useState<Response[]>([]);
+//   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [questionCount, setQuestionCount] = useState(0);
+//   const [error, setError] = useState<string | null>(null);
+//   const [insights, setInsights] = useState<string | null>(null);
+
+//   const fetchQuestion = async (previousAnswer?: string) => {
+//     setLoading(true);
+//     setError(null);
+//     try {
+//       const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+//       const questionData = response.data;
+
+//       if (questionData && questionData.question && Array.isArray(questionData.options)) {
+//         setCurrentQuestion({
+//           question: questionData.question,
+//           options: questionData.options.map((text: string, index: number) => ({
+//             id: index + 1,
+//             text,
+//           })),
+//         });
+//       } else {
+//         throw new Error("Unexpected question data structure");
+//       }
+//     } catch (error) {
+//       console.error("Error fetching question:", error);
+//       setError("Failed to fetch question. Please try again.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchQuestion();
+//   }, []);
+
+//   const handleOptionClick = (text: string) => {
+//     setSelectedOption(text);
+//   };
+
+//   const handleSubmit = async () => {
+//     if (selectedOption && currentQuestion) {
+//       const newResponse = { question: currentQuestion.question, answer: selectedOption };
+//       const updatedResponses = [...responses, newResponse];
+//       setResponses(updatedResponses);
+//       setSelectedOption(null);
+
+//       const newCount = questionCount + 1;
+//       setQuestionCount(newCount);
+
+//       if (newCount < 3) {
+//         await fetchQuestion(selectedOption);
+//       } else {
+//         setLoading(true);
+//         try {
+//           const response = await axios.post('http://localhost:5000/analyze', {
+//             responses: updatedResponses
+//           });
+//           setInsights(response.data.insights);
+//         } catch (error) {
+//           console.error("Error analyzing responses", error);
+//           setError("Failed to analyze responses. Please try again.");
+//         } finally {
+//           setLoading(false);
+//         }
+//       }
+//     }
+//   };
+
+//   if (loading) {
+//     return <div>Loading...</div>;
+//   }
+
+//   if (error) {
+//     return <div>Error: {error}</div>;
+//   }
+
+//   if (insights) {
+//     return (
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">Analysis Results</h2>
+//         <p>{insights}</p>
+//       </div>
+//     );
+//   }
+
+//   if (!currentQuestion) {
+//     return <div>No question available.</div>;
+//   }
+
+//   return (
+//     <div className="flex items-center justify-center min-h-screen text-gray-600">
+//       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+//         <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
+
+//         <ul className="space-y-4">
+//           {currentQuestion.options.map((option) => (
+//             <li key={option.id}>
+//               <button
+//                 onClick={() => handleOptionClick(option.text)}
+//                 className={`w-full py-3 px-4 text-left rounded-lg border ${
+//                   selectedOption === option.text
+//                     ? "bg-blue-500 text-white"
+//                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+//                 }`}
+//               >
+//                 {option.text}
+//               </button>
+//             </li>
+//           ))}
+//         </ul>
+
+//         <div className="mt-6">
+//           <button
+//             onClick={handleSubmit}
+//             disabled={!selectedOption}
+//             className={`w-full py-3 px-4 ${
+//               selectedOption
+//                 ? "bg-blue-400 text-white font-extrabold hover:bg-pink-800"
+//                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
+//             } rounded-lg`}
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Assessment;
+
+
+
+
+
+  // const fetchQuestion = useCallback(async (previousAnswer?: string) => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+  //     const questionData = response.data;
+
+  //     if (questionData && questionData.question && Array.isArray(questionData.options)) {
+  //       setCurrentQuestion({
+  //         question: questionData.question,
+  //         options: questionData.options.map((text: string, index: number) => ({
+  //           id: index + 1,
+  //           text,
+  //         })),
+  //       });
+  //     } else {
+  //       throw new Error("Unexpected question data structure");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching question:", error);
+  //     setError("Failed to fetch question. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
+
+
+
+
+import React, { useEffect, useState, useCallback } from 'react';
+import axios from 'axios';
+
 type Option = {
   id: number;
   text: string;
@@ -15,119 +889,155 @@ type Question = {
 
 type Response = {
   question: string;
-  answer: number;
+  answer: string;
 };
 
-const Assesment: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+const Assessment: React.FC = () => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [responses, setResponses] = useState<Response[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [questionCount, setQuestionCount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [insights, setInsights] = useState<string | null>(null);
 
-  const questions: Question[] = [
-    {
-      question: "How often have you felt anxious in the past two weeks?",
-      options: [
-        { id: 1, text: "Never" },
-        { id: 2, text: "Sometimes" },
-        { id: 3, text: "Often" },
-        { id: 4, text: "Always" },
-      ],
-    },
-    {
-      question: "How would you rate your overall mood in the past month?",
-      options: [
-        { id: 1, text: "Very low" },
-        { id: 2, text: "Low" },
-        { id: 3, text: "Neutral" },
-        { id: 4, text: "Positive" },
-      ],
-    },
-    {
-      question: "How often do you struggle with sleep?",
-      options: [
-        { id: 1, text: "Never" },
-        { id: 2, text: "Sometimes" },
-        { id: 3, text: "Often" },
-        { id: 4, text: "Always" },
-      ],
-    },
-    {
-      question: "Do you feel supported by friends and family?",
-      options: [
-        { id: 1, text: "Not at all" },
-        { id: 2, text: "Sometimes" },
-        { id: 3, text: "Mostly" },
-        { id: 4, text: "Always" },
-      ],
-    },
-  ];
 
-  const currentQuestion = questions[currentQuestionIndex];
 
-  const handleOptionClick = (id: number) => {
-    setSelectedOption(id);
-  };
+  const fetchQuestion = useCallback(async (previousAnswer?: string) => {
+  setLoading(true);
+  setError(null);
+  try {
+    const response = await axios.post('http://localhost:5000/questions', { previousAnswer });
+    const questionData = response.data;
 
-  const handleSubmit = () => {
-    if (selectedOption !== null) {
-      setResponses([...responses, { question: currentQuestion.question, answer: selectedOption }]);
+    if (questionData && questionData.question && Array.isArray(questionData.options)) {
+      setCurrentQuestion({
+        question: questionData.question,
+        options: questionData.options.map((text: string, index: number) => ({
+          id: index + 1,
+          text,
+        })),
+      });
+    } else {
+      throw new Error("Unexpected question data structure");
+    }
+  } catch (error) {
+    console.error("Error fetching question:", error);
+    if (axios.isAxiosError(error)) {
+      setError(`Failed to fetch question. ${error.message}. ${error.response?.data?.error || ''}`);
+    } else {
+      setError(`Failed to fetch question. ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  } finally {
+    setLoading(false);
+  }
+}, []);
+
+  useEffect(() => {
+    fetchQuestion();
+  }, [fetchQuestion]);
+
+  const handleOptionClick = useCallback((text: string) => {
+    setSelectedOption(text);
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    if (selectedOption && currentQuestion) {
+      const newResponse = { question: currentQuestion.question, answer: selectedOption };
+      setResponses(prev => [...prev, newResponse]);
       setSelectedOption(null);
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+
+      setQuestionCount(prev => prev + 1);
+
+      if (questionCount < 10) {
+        await fetchQuestion(selectedOption);
       } else {
-        alert("Assessment completed!"); // Replace this with end-of-assessment logic
-        console.log("Responses:", responses);
+        setLoading(true);
+        try {
+          const response = await axios.post('http://localhost:5000/analyze', {
+            responses: [...responses, newResponse]
+          });
+          setInsights(response.data.insights);
+        } catch (error) {
+          console.error("Error analyzing responses", error);
+          setError("Failed to analyze responses. Please try again.");
+        } finally {
+          setLoading(false);
+        }
       }
     }
-  };
+  }, [selectedOption, currentQuestion, questionCount, responses, fetchQuestion]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+     return (
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Error</h2>
+        <p className="mb-4 text-red-500">{error}</p>
+        <button
+          onClick={() => fetchQuestion()}
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  if (insights) {
+    return (
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Analysis Results</h2>
+        <p>{insights}</p>
+      </div>
+    );
+  }
+
+  if (!currentQuestion) {
+    return <div>No question available.</div>;
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white text-gray-600 w-full">
-      <div className="bg-white shadow-lg rounded-lg border border-gray-300 p-6 max-w-2xl w-full mt-8"> {/* Increased width to max-w-2xl */}
-        {/* Parent Card with Logo and Question Number */}
-        <div className="mb-6">
-          <img src="/images/instructions/honest.png" alt="Logo" className="h-1/3 w-1/3 mr-4 ml-48" /> {/* Replace with your logo path */}
-          <h1 className='text-xl font-bold ml-4'>
-            <i>Mental Health is not a destination but a process. It's about how you drive, not where you're going.</i>
-          </h1>
-        </div>
+    <div className="flex items-center justify-center min-h-screen text-gray-600">
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">{currentQuestion.question}</h2>
 
-        <div className="bg-white shadow-lg rounded-lg border border-gray-300 p-6 max-w-full w-full mt-6"> {/* Child container with full width */}
-          <h1 className="text-xl font-bold text-gray-800">Question {currentQuestionIndex + 1}</h1>
-          <h2 className="text-xl font-bold text-gray-800 mb-6 mt-4">{currentQuestion.question}</h2>
+        <ul className="space-y-4">
+          {currentQuestion.options.map((option) => (
+            <li key={option.id}>
+              <button
+                onClick={() => handleOptionClick(option.text)}
+                className={`w-full py-3 px-4 text-left rounded-lg border ${
+                  selectedOption === option.text
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                }`}
+              >
+                {option.text}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-          <ul className="flex flex-col items-center space-y-4"> {/* Centering options */}
-            {currentQuestion.options.map((option) => (
-              <li key={option.id} className="w-full flex justify-center"> {/* Center button */}
-                <button
-                  onClick={() => handleOptionClick(option.id)}
-                  className={`w-full py-3 px-4 text-left rounded-lg border-2 transition-all duration-300 ${
-                    selectedOption === option.id
-                      ? "bg-gray-900 text-white border-gray-900 text-xl"
-                      : "bg-gray-100 text-gray-800 border-gray-600 text-xl hover:bg-gray-600 hover:shadow-lg"
-                  }`}
-                >
-                  {option.text}
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-6 flex justify-center"> {/* Center button */}
-            <button
-              onClick={handleSubmit}
-              className="w-96 py-3 px-4 bg-gray-900 text-white font-bold text-xl rounded-lg border-2 border-gray-900 hover:bg-gray-800 transition-transform duration-300 transform hover:scale-105"
-            >
-              Next
-            </button>
-          </div>
-          <Link href="/home" passHref>
-            <span className='text-gray-900 hover:underline cursor-pointer relative top-3'>Go back home? Click here.</span>
-          </Link>
+        <div className="mt-6">
+          <button
+            onClick={handleSubmit}
+            disabled={!selectedOption}
+            className={`w-full py-3 px-4 ${
+              selectedOption
+                ? "bg-blue-400 text-white font-extrabold hover:bg-pink-800"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            } rounded-lg`}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Assesment;
+export default Assessment;

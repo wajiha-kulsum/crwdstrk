@@ -1,12 +1,29 @@
-import { ButtonIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Section3 from "@/components/Section3";
+import Section4 from "@/components/Section4";
+import Section1 from "@/components/Section1";
+import Section2 from "@/components/Section2";
+import FAQComponent from "@/components/ui/accordion";
+import Footer from "@/components/Footer";
+import TestButton from "@/components/testbutton";
 
-// import { Button } from "@/Components/ui/button";
+
 
 const Home: React.FC = () => {
   return (
     <div>
-      <h1>hello</h1>
+      <Navbar/>
+      <br/>
+      <Section3/>
+      <TestButton/>
+      <Section1/>
+      <Section4/>
+       <Section2/>
+       <FAQComponent/>
+     
+      <Footer/>
+
+
     </div>
   );
 };
