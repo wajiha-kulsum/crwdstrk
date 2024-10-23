@@ -2,21 +2,31 @@
 
 import React, { useState } from 'react';
 
-const testimonials = [
+const motivationalQuotes = [
   {
-    text: "Analysts used Mode’s advanced analytics capabilities to build parameterized reports and visualizations with live data. The customer success team then used the intuitive drag interface to delve.",
-    author: "John Butler",
-    title: "Developer",
+    text: "Your mental health is a priority. Your happiness is an essential. Your self-care is a necessity.",
+    author: "Unknown",
+    title: "Mental Wellness Advocate",
   },
   {
-    text: "This tool has significantly streamlined our workflow and improved our productivity. I can't recommend it enough!",
-    author: "Jane Smith",
-    title: "Project Manager",
+    text: "Mental health…is not a destination, but a process. It's about how you drive, not where you're going.",
+    author: "Noam Shpancer",
+    title: "Psychologist",
   },
   {
-    text: "Sassly AI has transformed the way we interact with our customers. It’s been a game changer for our business.",
-    author: "Mark Johnson",
-    title: "CEO",
+    text: "You, yourself, as much as anybody in the entire universe, deserve your love and affection.",
+    author: "Buddha",
+    title: "Spiritual Teacher",
+  },
+  {
+    text: "Healing takes time, and asking for help is a courageous step.",
+    author: "Mariska Hargitay",
+    title: "Actress & Advocate",
+  },
+  {
+    text: "What mental health needs is more sunlight, more candor, and more unashamed conversation.",
+    author: "Glenn Close",
+    title: "Actress & Advocate",
   },
 ];
 
@@ -24,12 +34,12 @@ const Section4 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % motivationalQuotes.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      (prevIndex - 1 + testimonials.length) % testimonials.length
+      (prevIndex - 1 + motivationalQuotes.length) % motivationalQuotes.length
     );
   };
 
@@ -46,14 +56,14 @@ const Section4 = () => {
       <div className="w-full max-w-2xl px-8 text-center">
         {/* Quote Icon */}
         <div className="mb-6 text-5xl text-gray-400">“</div>
-        {/* Testimonial Text */}
+        {/* Quote Text */}
         <blockquote className="text-2xl italic font-light text-gray-700">
-          "{testimonials[currentIndex].text}"
+          "{motivationalQuotes[currentIndex].text}"
         </blockquote>
         {/* Author Details */}
         <footer className="mt-6">
-          <p className="text-xl font-semibold text-gray-900">{testimonials[currentIndex].author}</p>
-          <p className="text-gray-500 text-md">{testimonials[currentIndex].title}</p>
+          <p className="text-xl font-semibold text-gray-900">{motivationalQuotes[currentIndex].author}</p>
+          <p className="text-gray-500 text-md">{motivationalQuotes[currentIndex].title}</p>
         </footer>
       </div>
 

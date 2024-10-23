@@ -1,34 +1,44 @@
+// components/InsightsChart.tsx
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-type InsightsData = {
-  name: string;
-  value: number;
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+interface InsightsChartProps {
+  data: number[];
+  labels: string[];
+}
+
+const InsightsChart: React.FC<InsightsChartProps> = ({ data, labels }) => {
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Insights Data',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Insights Visualization',
+      },
+    },
+  };
+
+  return <Bar data={chartData} options={options} />;
 };
 
-const InsightsGraph: React.FC<{ data: InsightsData[] }> = ({ data }) => {
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-  return (
-    <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        label={(entry) => entry.name}
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
-  );
-};
-
-export default InsightsGraph;
+export default InsightsChart;

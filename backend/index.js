@@ -750,7 +750,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 async function getGroqChatCompletion(previousAnswers) {
@@ -878,7 +878,7 @@ app.post("/analyze", async (req, res) => {
 
   try {
     const userInsights = await getInsightsFromResponses(responses);
-    res.json({ insights: userInsights });
+    res.json({ insights: userInsights,responses:responses });
   } catch (error) {
     console.error("Error in /analyze:", error);
     res.status(500).json({ error: "Error analyzing responses" });

@@ -1,64 +1,94 @@
-import { Leaf, Mic, Database, Lock } from 'lucide-react';
+"use client";
 
-interface Feature {
-  icon: JSX.Element;
-  title: string;
-  description: string;
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+// Define the structure of FAQ items
+interface FAQItem {
+  question: string;
+  answer: string;
 }
 
-const FeatureCard: React.FC<Feature> = ({ icon, title, description }) => (
-  <div className="p-6 transition-transform transform bg-white border border-gray-200 rounded-lg shadow-sm hover:scale-105 hover:shadow-lg">
-    <div className="mb-4 text-primary">{icon}</div>
-    <h3 className="mb-2 text-xl font-semibold text-black">{title}</h3>
-    <p className="mb-4 text-gray-600">{description}</p>
-    <a href="#" className="flex items-center font-medium text-primary hover:underline">
-      READ MORE <span className="ml-1">→</span>
-    </a>
-  </div>
-);
+const faqItems: FAQItem[] = [
+  {
+    question: "What services does your mental health platform offer?",
+    answer:
+      "Our platform provides personalized mental health assessments, mood tracking, AI-driven insights, and resources tailored to individual needs. We also offer support for creating personalized wellness plans.",
+  },
+  {
+    question: "How does the mood tracker work?",
+    answer:
+      "The mood tracker allows users to log their feelings daily and provides insights based on patterns and trends over time, helping to identify triggers and areas for improvement.",
+  },
+  {
+    question: "Can I use this platform for team mental health initiatives?",
+    answer:
+      "Yes! We offer features that allow organizations to support their teams' mental health, including group assessments and wellness resources tailored for workplaces.",
+  },
+  {
+    question: "Is my data secure on your platform?",
+    answer:
+      "Absolutely! We prioritize your privacy and use advanced encryption methods to ensure your data is secure and confidential at all times.",
+  },
+  {
+    question: "How can I get started with the service?",
+    answer:
+      "You can sign up for an account on our website. After that, you’ll have access to our tools and can start using our features right away!",
+  },
+];
 
-const SasslyFeatures: React.FC = () => {
-  const features: Feature[] = [
-    {
-      icon: <Leaf className="w-8 h-8 text-primary" />, // Added color to icon
-      title: "Smart Automation",
-      description: "AI-driven chatbot in the past allowing you to focus more on your business or simply",
-    },
-    {
-      icon: <Mic className="w-8 h-8 text-primary" />, // Added color to icon
-      title: "Voice Typing System",
-      description: "With Constitutional AI built in, Claude is designed to reduce brand risk",
-    },
-    {
-      icon: <Database className="w-8 h-8 text-primary" />, // Added color to icon
-      title: "Multiple Data Sources",
-      description: "Best in class data retention, and no training on your data structure of modern area.",
-    },
-    {
-      icon: <Lock className="w-8 h-8 text-primary" />, // Added color to icon
-      title: "Data Secured",
-      description: "Personalize to excel at your use cases and speak in your voice model work for you",
-    },
-  ];
+export default function FAQComponent() {
+  const [openItem, setOpenItem] = useState<number | null>(null);
+
+  const toggleItem = (index: number) => {
+    setOpenItem(openItem === index ? null : index);
+  };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-12 bg-gray-50">
       <div className="container px-4 mx-auto">
-        <h1 className="mb-4 text-4xl font-bold text-center text-black md:text-5xl">
-          Simple system and database
-        </h1>
-        <p className="max-w-2xl mx-auto mb-12 text-center text-gray-600">
-          Optimize your impact this holiday season with an AI-driven, multichannel marketing
-          strategy. Get all the tips and tricks in our free ebook.
-        </p>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
-          ))}
+        <div className="flex flex-col max-w-6xl gap-8 mx-auto md:flex-row">
+          <div className="md:w-2/3">
+            <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+              <h2 className="mb-8 text-4xl font-bold text-gray-900">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {faqItems.map((item, index) => (
+                  <div key={index} className="pb-4 border-b border-gray-200">
+                    <button
+                      className="flex items-center justify-between w-full p-3 text-left text-gray-900 rounded-lg"
+                      onClick={() => toggleItem(index)}
+                      aria-expanded={openItem === index}
+                    >
+                      <span className="text-lg font-medium">{item.question}</span>
+                      {openItem === index ? (
+                        <ChevronUp className="w-5 h-5 text-gray-900" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-gray-900" />
+                      )}
+                    </button>
+                    <div
+                      className={`mt-2 overflow-hidden transition-all duration-500 ease-in-out ${
+                        openItem === index ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <p className="pb-2 text-gray-800">{item.answer}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="md:w-1/3">
+            <img
+              src="/placeholder.svg?height=600&width=400"
+              alt="Person using smartphone"
+              className="rounded-lg shadow-lg"
+              width={400}
+              height={600}
+            />
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default SasslyFeatures;

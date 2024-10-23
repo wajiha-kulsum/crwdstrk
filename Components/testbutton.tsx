@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'; // Import Link from Next.js
 
 const TestButton = () => {
   return (
@@ -18,9 +19,12 @@ const TestButton = () => {
           Get your health evaluated and improve them step by step with our expert-driven assessments.
         </p>
         <div className="flex justify-center">
-          <button className="px-8 py-3 text-white transition-all duration-300 transform rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-xl hover:from-indigo-600 hover:to-purple-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
-            Get Started
-          </button>
+          {/* Wrap the button in Link for routing */}
+          <Link href="/assessment" passHref>
+            <button className="px-8 py-3 text-white transition-all duration-300 transform rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-xl hover:from-indigo-600 hover:to-purple-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+              Get Started
+            </button>
+          </Link>
         </div>
       </div>
     </div>

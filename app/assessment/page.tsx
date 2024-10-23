@@ -34,7 +34,7 @@ const Assessment: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("http://localhost:5000/questions", {
+      const response = await axios.post("http://localhost:5001/questions", {
         previousAnswer,
       });
       const questionData = response.data;
@@ -92,7 +92,7 @@ const Assessment: React.FC = () => {
       } else {
         setLoading(true);
         try {
-          const response = await axios.post("http://localhost:5000/analyze", {
+          const response = await axios.post("http://localhost:5001/analyze", {
             responses: [...responses, newResponse],
           });
           setInsights(response.data.insights);

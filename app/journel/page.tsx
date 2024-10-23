@@ -1,263 +1,198 @@
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
-import {
-  Calendar,
-  MapPin,
-  Type,
-  Search,
-  ChevronDown,
-  Menu,
-  Save,
-  Edit,
-  Trash2,
-} from "lucide-react";
+import React, { useState, useEffect } from 'react'
+import { Search, Plus, Settings, Trash2, Edit } from 'lucide-react'
+import { motion } from 'framer-motion'
 
-interface Entry {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
+interface Note {
+  id: number
+  title: string
+  content: string
+  category: string
+  color: string
 }
 
-interface SidebarProps {
-  entries: Entry[];
-  onNewEntry: () => void;
-  onSelectEntry: (entry: Entry, edit?: boolean) => void;
-  onDeleteEntry: (id: number) => void;
-}
+export default function Journal() {
+  const [notes, setNotes] = useState<Note[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
 
-const Sidebar: React.FC<SidebarProps> = ({ entries, onNewEntry, onSelectEntry, onDeleteEntry }) => (
-  <div className="w-64 h-screen p-4 overflow-auto text-white bg-gray-500">
-    <h2 className="mb-4 text-xl font-bold">Your Journal</h2>
-    <div className="relative mb-4">
-      <input
-        type="text"
-        placeholder="Search journal..."
-        className="w-full px-4 py-2 pl-10 text-white bg-gray-700 rounded-md"
-      />
-      <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-    </div>
-    <button
-      className="w-full px-4 py-2 mb-4 font-bold text-white bg-black rounded hover:bg-gray-800"
-      onClick={onNewEntry}
-    >
-      New Entry
-    </button>
-    <nav>
-      <a href="#" className="block py-2 hover:bg-gray-700">
-        View All Entries
-      </a>
-    </nav>
-    {entries.length > 0 ? (
-      <div className="mt-4">
-        <h3 className="mb-2 font-semibold">Recent Entries:</h3>
-        {entries.map((entry) => (
-          <div
-            key={entry.id}
-            className="flex items-center justify-between px-2 py-2 cursor-pointer hover:bg-gray-700"
-          >
-            <span onClick={() => onSelectEntry(entry)}>
-              {entry.title || "Untitled Entry"}
-            </span>
-            <div>
-              <button
-                className="p-1 text-gray-300 hover:text-white"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSelectEntry(entry, true);
-                }}
-              >
-                <Edit size={16} />
+  useEffect(() => {
+    // Simulating fetched notes
+    const fetchedNotes: Note[] = [
+      { id: 1, title: 'Daily Plans', content: '- Wake up\n- Go to a meeting\n- Lunch with John\n- Finish report', category: 'Personal', color: 'bg-pink-200' },
+      { id: 2, title: 'Pronunciation', content: 'Practice pronunciation daily', category: 'Study', color: 'bg-purple-200' },
+      { id: 3, title: 'Passwords', content: 'WiFi: 12345678\nGoogle: mypassword123', category: 'Personal', color: 'bg-gray-200' },
+      { id: 4, title: 'Mailing', content: 'Hi! Great to meet you.', category: 'Work', color: 'bg-blue-200' },
+      { id: 5, title: 'Call Summary', content: "Here's a summary of highlights with John.", category: 'Work', color: 'bg-green-200' }
+    ]
+    setNotes(fetchedNotes)
+  }, [])
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const addNote = () => {
+    const newNote: Note = {
+      id: Date.now(),
+      title: 'New Note',
+      content: '',
+      category: 'Personal',
+      color: 'bg-gray-200'
+    }
+    setNotes([newNote, ...notes])
+    setSelectedNote(newNote)
+    setIsEditing(true)
+  }
+
+  const deleteNote = (id: number) => {
+    setNotes(notes.filter(note => note.id !== id))
+    if (selectedNote?.id === id) {
+      setSelectedNote(null)
+      setIsEditing(false)
+    }
+  }
+
+  const editNote = (note: Note) => {
+    setSelectedNote(note)
+    setIsEditing(true)
+  }
+
+  const saveNote = (updatedNote: Note) => {
+    setNotes(notes.map(note => note.id === updatedNote.id ? updatedNote : note))
+    setSelectedNote(updatedNote)
+    setIsEditing(false)
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <motion.aside
+        initial={{ x: -300 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-64 p-6 bg-white shadow-lg"
+      >
+        <h1 className="mb-8 text-2xl font-bold text-gray-800">My Journal</h1>
+        <nav className="space-y-4">
+          {['All Notes', 'Personal', 'Work', 'Study', 'Miscellaneous'].map((category, index) => (
+            <motion.a
+              key={index}
+              href="#"
+              className="flex items-center px-4 py-2 text-gray-600 transition-colors rounded-lg hover:bg-gray-200"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {category}
+            </motion.a>
+          ))}
+        </nav>
+        <button onClick={addNote} className="w-full p-2 mt-8 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-500">
+          Add New Note
+        </button>
+      </motion.aside>
+
+      {/* Main content */}
+      <motion.main
+        initial={{ opacity: 0, x: 300 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7 }}
+        className="flex-1 p-8 overflow-auto"
+      >
+        {/* Search and add new note */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search notes..."
+              className="w-64 py-2 pl-10 pr-4 text-black border rounded-full" // Text color set to black
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
+          </div>
+          <div className="flex items-center space-x-4">
+            <motion.button
+              className="p-2 bg-blue-100 rounded-full"
+              onClick={addNote}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Plus className="text-blue-600" size={20} />
+            </motion.button>
+            <motion.button
+              className="p-2 bg-gray-200 rounded-full"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Settings className="text-gray-600" size={20} />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Notes grid */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredNotes.map((note) => (
+            <motion.div
+              key={note.id}
+              className={`${note.color} p-4 rounded-lg shadow relative`}
+              whileHover={{ scale: 1.03 }}
+            >
+              <h3 className="mb-2 font-bold text-black">{note.title}</h3>
+              <p className="text-sm text-black whitespace-pre-line">{note.content}</p> {/* Text color set to black */}
+              <div className="absolute flex space-x-2 top-2 right-2">
+                <motion.button
+                  onClick={() => editNote(note)}
+                  className="p-1 bg-white rounded-full"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Edit className="text-black" size={16} />
+                </motion.button>
+                <motion.button
+                  onClick={() => deleteNote(note.id)}
+                  className="p-1 bg-white rounded-full"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Trash2 className="text-black" size={16} />
+                </motion.button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.main>
+
+      {/* Edit Modal */}
+      {isEditing && selectedNote && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-1/2 p-6 bg-white rounded-lg">
+            <h2 className="mb-4 text-2xl font-bold text-black">Edit Note</h2>
+            <input
+              type="text"
+              value={selectedNote.title}
+              onChange={(e) => setSelectedNote({ ...selectedNote, title: e.target.value })}
+              className="w-full p-2 mb-4 text-black border rounded" // Text color set to black
+            />
+            <textarea
+              value={selectedNote.content}
+              onChange={(e) => setSelectedNote({ ...selectedNote, content: e.target.value })}
+              className="w-full h-40 p-2 mb-4 text-black border rounded" // Text color set to black
+            />
+            <div className="flex justify-end space-x-2">
+              <button onClick={() => setIsEditing(false)} className="px-4 py-2 text-gray-600 bg-gray-200 rounded">
+                Cancel
               </button>
-              <button
-                className="p-1 text-gray-300 hover:text-white"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDeleteEntry(entry.id);
-                }}
-              >
-                <Trash2 size={16} />
+              <button onClick={() => saveNote(selectedNote)} className="px-4 py-2 text-white bg-blue-600 rounded">
+                Save
               </button>
             </div>
           </div>
-        ))}
-      </div>
-    ) : (
-      <p className="mt-4 text-gray-400">This journal has no entries</p>
-    )}
-  </div>
-);
-
-const TopNav: React.FC = () => (
-  <nav className="flex items-center justify-between p-4 text-gray-600 bg-gray-100">
-    <Menu className="md:hidden" />
-    <div className="flex items-center space-x-4">
-      <span className="text-2xl font-bold">YOUR JOURNAL</span>
-    </div>
-    <div className="flex items-center space-x-4">
-      <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">
-        Go PRO
-      </button>
-      <div className="flex items-center">
-        <span>User_name</span>
-        <ChevronDown size={16} />
-      </div>
-    </div>
-  </nav>
-);
-
-interface JournalEntryProps {
-  entry: Entry;
-  onSave: (entry: Entry) => void;
-  isEditing: boolean;
-}
-
-const JournalEntry: React.FC<JournalEntryProps> = ({ entry, onSave, isEditing }) => {
-  const [title, setTitle] = useState(entry.title);
-  const [content, setContent] = useState(entry.content);
-  const [editMode, setEditMode] = useState(isEditing);
-
-  useEffect(() => {
-    setTitle(entry.title);
-    setContent(entry.content);
-    setEditMode(isEditing);
-  }, [entry, isEditing]);
-
-  const handleSave = () => {
-    onSave({ ...entry, title, content });
-    setEditMode(false);
-  };
-
-  return (
-    <div className="max-w-4xl p-6 mx-auto my-8 bg-white rounded-lg shadow-lg">
-      <div className="flex items-center justify-between mb-4">
-        {editMode ? (
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full text-3xl font-bold text-gray-900 placeholder-gray-400 focus:outline-none"
-            placeholder="Enter title here"
-          />
-        ) : (
-          <h2 className="text-3xl font-bold text-gray-900">{title || "Untitled Entry"}</h2>
-        )}
-        {editMode ? (
-          <button
-            onClick={handleSave}
-            className="inline-flex items-center px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600"
-          >
-            <Save size={18} className="mr-2" />
-            Save
-          </button>
-        ) : (
-          <button
-            onClick={() => setEditMode(true)}
-            className="inline-flex items-center px-4 py-2 font-bold text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
-          >
-            <Edit size={18} className="mr-2" />
-            Edit
-          </button>
-        )}
-      </div>
-      <div className="flex items-center mb-4 text-gray-500">
-        <Calendar size={18} className="mr-2" />
-        <span>{entry.date}</span>
-        <MapPin size={18} className="ml-4 mr-2" />
-        <Type size={18} className="ml-4" />
-      </div>
-      {editMode ? (
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full h-[calc(100vh-300px)] focus:outline-none resize-none text-gray-900 p-4 border rounded-md"
-          placeholder="Start writing your entry here..."
-        />
-      ) : (
-        <div className="w-full h-[calc(100vh-300px)] overflow-auto text-gray-900 p-4 border rounded-md">
-          {content}
         </div>
       )}
     </div>
-  );
-};
-
-const JournalPage: React.FC = () => {
-  const [entries, setEntries] = useState<Entry[]>([]);
-  const [currentEntry, setCurrentEntry] = useState<Entry | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    const savedEntries = localStorage.getItem("journalEntries");
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
-    }
-  }, []);
-
-  const saveEntry = (entry: Entry) => {
-    let updatedEntries;
-    if (entry.id) {
-      updatedEntries = entries.map((e) =>
-        e.id === entry.id ? entry : e
-      );
-    } else {
-      const newEntry = { ...entry, id: Date.now() };
-      updatedEntries = [newEntry, ...entries];
-      entry = newEntry;
-    }
-    setEntries(updatedEntries);
-    setCurrentEntry(entry);
-    setIsEditing(false);
-    localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
-  };
-
-  const createNewEntry = () => {
-    const newEntry = {
-      id: 0,
-      title: "",
-      content: "",
-      date: new Date().toLocaleDateString(),
-    };
-    setCurrentEntry(newEntry);
-    setIsEditing(true);
-  };
-
-  const deleteEntry = (id: number) => {
-    const updatedEntries = entries.filter((entry) => entry.id !== id);
-    setEntries(updatedEntries);
-    if (currentEntry && currentEntry.id === id) {
-      setCurrentEntry(null);
-    }
-    localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
-  };
-
-  return (
-    <div className="flex h-screen">
-      <Sidebar
-        entries={entries}
-        onNewEntry={createNewEntry}
-        onSelectEntry={(entry, edit = false) => {
-          setCurrentEntry(entry);
-          setIsEditing(edit);
-        }}
-        onDeleteEntry={deleteEntry}
-      />
-      <div className="flex-1">
-        <TopNav />
-        {currentEntry ? (
-          <JournalEntry entry={currentEntry} onSave={saveEntry} isEditing={isEditing} />
-        ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">
-            <p>Select an entry to view or create a new one.</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default JournalPage;
-
-
-
+  )
+}

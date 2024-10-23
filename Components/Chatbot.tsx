@@ -62,10 +62,10 @@
 
 //   return (
 //     <div className="flex flex-col h-screen bg-gray-100">
-//       <header className="bg-blue-600 text-white p-4 text-center">
+//       <header className="p-4 text-center text-white bg-blue-600">
 //         <h1 className="text-2xl font-bold">AI Therapist Chat</h1>
 //       </header>
-//       <main className="flex-grow overflow-auto p-4">
+//       <main className="flex-grow p-4 overflow-auto">
 //         <div className="max-w-2xl mx-auto">
 //           {messages.map((message, index) => (
 //             <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -76,7 +76,7 @@
 //           ))}
 //           {isLoading && (
 //             <div className="text-center">
-//               <div className="inline-block p-3 rounded-lg bg-gray-200">
+//               <div className="inline-block p-3 bg-gray-200 rounded-lg">
 //                 Thinking...
 //               </div>
 //             </div>
@@ -84,8 +84,8 @@
 //           <div ref={messagesEndRef} />
 //         </div>
 //       </main>
-//       <footer className="bg-white p-4 border-t">
-//         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto flex">
+//       <footer className="p-4 bg-white border-t">
+//         <form onSubmit={handleSubmit} className="flex max-w-2xl mx-auto">
 //           <input
 //             type="text"
 //             value={input}
@@ -96,9 +96,9 @@
 //           <button
 //             type="submit"
 //             disabled={isLoading}
-//             className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="p-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 //           >
-//             <PaperAirplaneIcon className="h-6 w-6" />
+//             <PaperAirplaneIcon className="w-6 h-6" />
 //           </button>
 //         </form>
 //       </footer>
@@ -184,10 +184,10 @@
 
 //   return (
 //     <div className="flex flex-col h-screen bg-gray-100">
-//       <header className="bg-blue-600 text-white p-4 text-center">
+//       <header className="p-4 text-center text-white bg-blue-600">
 //         <h1 className="text-2xl font-bold">AI Therapist Chat</h1>
 //       </header>
-//       <main className="flex-grow overflow-auto p-4">
+//       <main className="flex-grow p-4 overflow-auto">
 //         <div className="max-w-2xl mx-auto">
 //           {messages.map((message, index) => (
 //             <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -198,7 +198,7 @@
 //           ))}
 //           {isLoading && (
 //             <div className="text-center">
-//               <div className="inline-block p-3 rounded-lg bg-gray-200">
+//               <div className="inline-block p-3 bg-gray-200 rounded-lg">
 //                 Thinking...
 //               </div>
 //             </div>
@@ -206,8 +206,8 @@
 //           <div ref={messagesEndRef} />
 //         </div>
 //       </main>
-//       <footer className="bg-white p-4 border-t">
-//         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto flex">
+//       <footer className="p-4 bg-white border-t">
+//         <form onSubmit={handleSubmit} className="flex max-w-2xl mx-auto">
 //           <input
 //             type="text"
 //             value={input}
@@ -218,9 +218,9 @@
 //           <button
 //             type="submit"
 //             disabled={isLoading}
-//             className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="p-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 //           >
-//             <PaperAirplaneIcon className="h-6 w-6" />
+//             <PaperAirplaneIcon className="w-6 h-6" />
 //           </button>
 //         </form>
 //       </footer>
@@ -315,10 +315,10 @@
 
 //   return (
 //     <div className="flex flex-col h-screen bg-gray-100">
-//       <header className="bg-blue-600 text-white p-4 text-center">
+//       <header className="p-4 text-center text-white bg-blue-600">
 //         <h1 className="text-2xl font-bold">AI Therapist Chat</h1>
 //       </header>
-//       <main className="flex-grow overflow-auto p-4">
+//       <main className="flex-grow p-4 overflow-auto">
 //         <div className="max-w-2xl mx-auto">
 //           {messages.map((message, index) => (
 //             <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -329,7 +329,7 @@
 //           ))}
 //           {isLoading && (
 //             <div className="text-center">
-//               <div className="inline-block p-3 rounded-lg bg-gray-200">
+//               <div className="inline-block p-3 bg-gray-200 rounded-lg">
 //                 Thinking...
 //               </div>
 //             </div>
@@ -337,8 +337,8 @@
 //           <div ref={messagesEndRef} />
 //         </div>
 //       </main>
-//       <footer className="bg-white p-4 border-t">
-//         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto flex">
+//       <footer className="p-4 bg-white border-t">
+//         <form onSubmit={handleSubmit} className="flex max-w-2xl mx-auto">
 //           <input
 //             type="text"
 //             value={input}
@@ -349,9 +349,9 @@
 //           <button
 //             type="submit"
 //             disabled={isLoading}
-//             className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="p-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 //           >
-//             <PaperAirplaneIcon className="h-6 w-6" />
+//             <PaperAirplaneIcon className="w-6 h-6" />
 //           </button>
 //         </form>
 //       </footer>
@@ -448,10 +448,10 @@
 
 //   return (
 //     <div className="flex flex-col h-screen bg-gray-100">
-//       <header className="bg-blue-600 text-white p-4 text-center">
+//       <header className="p-4 text-center text-white bg-blue-600">
 //         <h1 className="text-2xl font-bold">AI Therapist Chat</h1>
 //       </header>
-//       <main className="flex-grow overflow-auto p-4">
+//       <main className="flex-grow p-4 overflow-auto">
 //         <div className="max-w-2xl mx-auto">
 //           {messages.map((message, index) => (
 //             <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -462,7 +462,7 @@
 //           ))}
 //           {isLoading && (
 //             <div className="text-center">
-//               <div className="inline-block p-3 rounded-lg bg-gray-200">
+//               <div className="inline-block p-3 bg-gray-200 rounded-lg">
 //                 Thinking...
 //               </div>
 //             </div>
@@ -470,8 +470,8 @@
 //           <div ref={messagesEndRef} />
 //         </div>
 //       </main>
-//       <footer className="bg-white p-4 border-t">
-//         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto flex">
+//       <footer className="p-4 bg-white border-t">
+//         <form onSubmit={handleSubmit} className="flex max-w-2xl mx-auto">
 //           <input
 //             type="text"
 //             value={input}
@@ -482,9 +482,9 @@
 //           <button
 //             type="submit"
 //             disabled={isLoading}
-//             className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="p-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
 //           >
-//             <PaperAirplaneIcon className="h-6 w-6" />
+//             <PaperAirplaneIcon className="w-6 h-6" />
 //           </button>
 //         </form>
 //       </footer>
@@ -578,10 +578,10 @@
 
 //   return (
 //     <div className="flex flex-col h-screen bg-gray-50">
-//       <header className="bg-transparent p-4 text-center border-b border-gray-200">
+//       <header className="p-4 text-center bg-transparent border-b border-gray-200">
 //         <h1 className="text-xl font-semibold text-gray-800">AI Therapist Chat</h1>
 //       </header>
-//       <main className="flex-grow overflow-auto p-4">
+//       <main className="flex-grow p-4 overflow-auto">
 //         <div className="max-w-2xl mx-auto">
 //           {messages.map((message, index) => (
 //             <div key={index} className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -592,7 +592,7 @@
 //           ))}
 //           {isLoading && (
 //             <div className="text-center">
-//               <div className="inline-block p-3 rounded-lg bg-gray-100 text-gray-600 shadow-sm">
+//               <div className="inline-block p-3 text-gray-600 bg-gray-100 rounded-lg shadow-sm">
 //                 Thinking...
 //               </div>
 //             </div>
@@ -601,20 +601,20 @@
 //         </div>
 //       </main>
 //       <footer className="p-4 bg-white border-t border-gray-200">
-//         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto flex">
+//         <form onSubmit={handleSubmit} className="flex max-w-2xl mx-auto">
 //           <input
 //             type="text"
 //             value={input}
 //             onChange={(e: ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
 //             placeholder="Type your message..."
-//             className="flex-grow p-2 bg-gray-100 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-gray-400 shadow-sm"
+//             className="flex-grow p-2 bg-gray-100 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
 //           />
 //           <button
 //             type="submit"
 //             disabled={isLoading}
-//             className="bg-gray-800 text-white p-2 rounded-r-lg hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 shadow-sm"
+//             className="p-2 text-white bg-gray-800 rounded-r-lg shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600"
 //           >
-//             <PaperAirplaneIcon className="h-5 w-5" />
+//             <PaperAirplaneIcon className="w-5 h-5" />
 //           </button>
 //         </form>
 //       </footer>
@@ -717,7 +717,7 @@ export default function Component() {
       <CardHeader className="border-b border-purple-100">
         <CardTitle className="text-2xl font-bold text-center text-purple-700">AI Therapist Chat</CardTitle>
       </CardHeader>
-      <CardContent className="flex-grow overflow-auto p-4 space-y-4">
+      <CardContent className="flex-grow p-4 space-y-4 overflow-auto">
         {messages.map((message, index) => (
           <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`flex items-end space-x-2 ${message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
@@ -740,7 +740,7 @@ export default function Component() {
               <Avatar className="bg-blue-500">
                 <AvatarFallback>AI</AvatarFallback>
               </Avatar>
-              <div className="max-w-md p-3 rounded-2xl shadow-md bg-white text-gray-800 rounded-bl-none">
+              <div className="max-w-md p-3 text-gray-800 bg-white rounded-bl-none shadow-md rounded-2xl">
                 <div className="flex space-x-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                   <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -752,7 +752,7 @@ export default function Component() {
         )}
         <div ref={messagesEndRef} />
       </CardContent>
-      <CardFooter className="border-t border-purple-100 p-4">
+      <CardFooter className="p-4 border-t border-purple-100">
         <form onSubmit={handleSubmit} className="flex w-full space-x-2">
           <Input
             type="text"
@@ -761,8 +761,8 @@ export default function Component() {
             placeholder="Type your message..."
             className="flex-grow bg-white border-purple-200 focus:ring-purple-400"
           />
-          <Button type="submit" disabled={isLoading} className="bg-purple-500 hover:bg-purple-600 text-white">
-            <Send className="h-5 w-5" />
+          <Button type="submit" disabled={isLoading} className="text-white bg-purple-500 hover:bg-purple-600">
+            <Send className="w-5 h-5" />
           </Button>
         </form>
       </CardFooter>
